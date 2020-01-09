@@ -12,56 +12,56 @@ export class App extends React.Component<{},test>{
         super(props);
         this.state={
             input:``,
-            list:[`aaa`,`bbb`]
+            list:[`aaa`,`bbb`,`ccc`]
         }
     }
 
-
-    InputChange(e:any){
+    AddChange(e:any){
         this.setState({
             input:e.target.value
         })
     }
-
-    AddChange(){
+    Add(e:any){
         this.setState({
-            input:``,
             list:[...this.state.list,this.state.input]
         })
     }
-
-    RemoveChange(index:number){
-        let state =this.state.list;
-        state.splice(index,1)
+    Delete(index:any){
+        let list=this.state.list;
+        list.splice( index,1);
         this.setState({
-            list:state
+            list:list
         })
+
     }
 
     render(){
         return(
             <React.Fragment>
                 <div>
-                    <input type="text" value={this.state.input} onChange={this.InputChange.bind(this)} />
-                    <button onClick={this.AddChange.bind(this)}>新增</button>
+                <input type="text" value={this.state.input} onChange={this.AddChange.bind(this)} />
+                <button onClick={this.Add.bind(this)}>新增</button>
                 </div>
-                <ul>{
-                    this.state.list.map((item,index)=>{
-                        return(
-                        <li key={index+item} onClick={this.RemoveChange.bind(this,index)} >
-                        {item}
-                        </li>
-                    )
-                })
-                }
-                    <App2 />
+                <div>
+                    {/*<li key={item+index} onClick={this.Delete.bind(this,index )} dangerouslySetInnerHTML={{__html:item}} ></li>*/}
+                    <ul>
+                        {
+                            this.state.list.map(
+                                (item,index)=>{return(
+                                    <React.Fragment>
+                                    <App2 />
+                                    </React.Fragment>
 
-                </ul>
+                                )}
+                            )
+                        }
+                    </ul>
+                </div>
             </React.Fragment>
         )
     }
+
+
+
 }
-
-
-
 
