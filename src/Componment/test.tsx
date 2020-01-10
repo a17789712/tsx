@@ -1,10 +1,19 @@
 import React from "react";
 
-export class App2 extends React.Component{
+interface Data {
+    item:any[],
+    index:number,
+    delete(index:number):void
+}
+
+export default class App2 extends React.Component<Data>{
+    constructor(props:any){
+        super(props);
+    }
     render(){
         return(
-            <li>
-                插入
+            <li onClick={this.props.delete.bind(this,this.props.index)}>
+                {this.props.item}
             </li>
         )
     }

@@ -1,67 +1,72 @@
-import React from 'react'
-import {App2} from './Componment/test'
+import React from "react";
+import App2 from "./Componment/test";
 
-type test={
+type Data={
     input:string,
     list:any[]
 }
-
-export class App extends React.Component<{},test>{
-
+export class App extends React.Component<{},Data>{
     constructor(props:any){
         super(props);
         this.state={
             input:``,
-            list:[`aaa`,`bbb`,`ccc`]
+            list:[`test1`,`test2`,`test3`]
         }
     }
 
-    AddChange(e:any){
-        this.setState({
-            input:e.target.value
-        })
+    Change=(e:any)=>{ this.setState({input:e.target.value}) }
+    Add=(e:any)=>{  this.setState({list:[...this.state.list,this.state.input]})  }
+    Delete=(index:number)=>{
+        let state=this.state.list
+        state.splice(index,1);
+        this.setState({list: state})
     }
-    Add(e:any){
-        this.setState({
-            list:[...this.state.list,this.state.input]
-        })
-    }
-    Delete(index:any){
-        let list=this.state.list;
-        list.splice( index,1);
-        this.setState({
-            list:list
-        })
-
-    }
-
     render(){
         return(
             <React.Fragment>
                 <div>
-                <input type="text" value={this.state.input} onChange={this.AddChange.bind(this)} />
-                <button onClick={this.Add.bind(this)}>新增</button>
+                    <label htmlFor="input" >定位</label>
+                    <input id="input" value={this.state.input} onChange={this.Change.bind(this)} />
+                    <button onClick={this.Add.bind(this)}>新增</button>
                 </div>
                 <div>
-                    {/*<li key={item+index} onClick={this.Delete.bind(this,index )} dangerouslySetInnerHTML={{__html:item}} ></li>*/}
-                    <ul>
-                        {
-                            this.state.list.map(
-                                (item,index)=>{return(
-                                    <React.Fragment>
-                                    <App2 />
-                                    </React.Fragment>
-
-                                )}
+                    {
+                        this.state.list.map((item,index)=>{
+                            return(
+                                <React.Fragment>
+                                    {/*<li key={index+item} onClick={this.Delete.bind(this,index)}>*/}
+                                    {/*    {item}*/}
+                                    {/*</li>*/}
+                                    <App2  item={item} key={index+item}  index={index} delete={this.Delete.bind(this)}  />
+                                </React.Fragment>
                             )
-                        }
-                    </ul>
+                        })
+                    }
                 </div>
             </React.Fragment>
         )
     }
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
