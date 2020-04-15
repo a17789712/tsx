@@ -7,6 +7,9 @@ interface IProps {
     index:number,
     delete(index:number):void
 }
+interface IState {
+    count:number
+}
 export default class App2 extends React.Component<IProps>{
     constructor(props:any){
         super(props);
